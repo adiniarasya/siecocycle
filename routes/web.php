@@ -26,9 +26,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-route::get('/dashboard/mitra', [ MitraController::class, 'index'])->name('mitra.index');
-route::get('/dashboard/warga', [ WargaController::class, 'index'])->name('warga.index');
-route::get('/dashboard/admin', [ AdminController::class, 'index'])->name('admin.index');
+route::get('/dashboard/mitra', [ MitraController::class, 'index'])->name('mitra.index')->middleware(['auth', 'role:mitra']);;
+route::get('/dashboard/warga', [ WargaController::class, 'index'])->name('warga.index')->middleware(['auth', 'role:warga']);;
+route::get('/dashboard/admin', [ AdminController::class, 'index'])->name('admin.index')->middleware(['auth', 'role:admin']);;
 
 
 Route::middleware('auth')->group(function () {
