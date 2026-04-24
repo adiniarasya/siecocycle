@@ -3,6 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\MitraController;
+use App\Http\Controllers\WargaController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +26,15 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+route::get('/dashboard/mitra', [ MitraController::class, 'index'])->name('mitra.index');
+route::get('/dashboard/warga', [ WargaController::class, 'index'])->name('warga.index');
+route::get('/dashboard/admin', [ AdminController::class, 'index'])->name('admin.index');
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
 require __DIR__.'/auth.php';
+
