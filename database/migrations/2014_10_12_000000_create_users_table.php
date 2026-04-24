@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name', 100);
             $table->string('email', 100)->unique();
             $table->string('password');
-            $table->enum('role', ['warga', 'bank', 'rw', 'admin'])->default('warga');
+            $table->enum('role', ['warga', 'mitra', 'admin'])->default('warga');
             $table->text('address')->nullable();
             $table->string('phone', 15)->nullable();
             $table->string('rw_name', 20)->nullable()->comment('contoh: RW 12');
