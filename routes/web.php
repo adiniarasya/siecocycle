@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\MitraController;
 use App\Http\Controllers\WargaController;
+use App\Http\Controllers\DepositController;
 use App\Http\Controllers\AdminController;
 
 /*
@@ -27,7 +28,19 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 route::get('/dashboard/mitra', [ MitraController::class, 'index'])->name('mitra.index')->middleware(['auth', 'role:mitra']);;
-route::get('/dashboard/warga', [ WargaController::class, 'index'])->name('warga.index')->middleware(['auth', 'role:warga']);;
+
+Route::middleware(['auth', 'role:warga'])->group(function () {
+
+    Route::get('/dashboard/warga', [WargaController::class, 'index'])
+        ->name('warga.index');
+
+    Route::get('/warga/deposits/create', [DepositController::class, 'create'])
+        ->name('deposits.create');
+
+    Route::post('/warga/deposits/store', [DepositController::class, 'store'])
+        ->name('deposits.store');
+});
+
 route::get('/dashboard/admin', [ AdminController::class, 'index'])->name('admin.index')->middleware(['auth', 'role:admin']);;
 
 
