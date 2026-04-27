@@ -9,6 +9,35 @@ use Illuminate\Support\Facades\Auth;
 
 class DepositController extends Controller
 {
+    public function index()
+{
+    $deposits = Deposit::with('wasteType')
+        ->where('user_id', Auth::id()) // biar per user
+        ->latest()
+        ->get();
+
+    $totalBerat = $deposits->sum('weight_kg');
+
+    $totalPoin = $deposits->sum(function ($item) {
+        return $item->wasteType
+            ? $item->weight_kg * $item->wasteType->reward_per_kg
+            : 0;
+    });
+
+    $totalCO2 = $deposits->sum(function ($item) {
+        return $item->wasteType
+            ? $item->weight_kg * $item->wasteType->co2_factor
+            : 0;
+    });
+
+    return view('warga.dashboard', compact(
+        'deposits',
+        'totalBerat',
+        'totalPoin',
+        'totalCO2'
+    ));
+}
+
     public function create()
     {
         $wasteTypes = WasteType::where('is_active', 1)->get();

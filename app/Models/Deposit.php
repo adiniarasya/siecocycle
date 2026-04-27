@@ -15,6 +15,10 @@ class Deposit extends Model
         'notes',
         'status'
     ];
+ public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function wasteType()
     {

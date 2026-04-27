@@ -51,3 +51,4 @@ Route::middleware('auth')->group(function () {
 });
 require __DIR__.'/auth.php';
 
+Route::post('/deposit/{id}/decision', [MitraController::class, 'decision']);

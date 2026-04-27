@@ -20,6 +20,8 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->string('phone', 15)->nullable();
             $table->string('rw_name', 20)->nullable()->comment('contoh: RW 12');
+            $table->foreignId('bank_id')->nullable()->constrained()->nullOnDelete();
+
             $table->timestamps();
         });
     }
