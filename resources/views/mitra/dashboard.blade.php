@@ -10,21 +10,21 @@
     <!-- CARD SUMMARY -->
     <div class="row mb-4">
         <div class="col-md-4">
-            <div class="card card-custom card-blue p-3">
+            <div class="card card-custom text-white bg-warning p-3">
                 <h6>Pending</h6>
                 <h3>{{ $totalPending ?? 0 }}</h3>
             </div>
         </div>
 
         <div class="col-md-4">
-            <div class="card card-custom card-red p-3">
+            <div class="card card-custom text-white bg-success p-3">
                 <h6>Terverifikasi</h6>
                 <h3>{{ $totalVerified ?? 0 }}</h3>
             </div>
         </div>
 
         <div class="col-md-4">
-            <div class="card card-custom card-yellow p-3">
+            <div class="card card-custom text-white bg-primary p-3">
                 <h6>Total Sampah Masuk</h6>
                 <h3>{{ $totalSampah ?? 0 }} Kg</h3>
             </div>
