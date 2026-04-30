@@ -44,7 +44,7 @@ class AuthenticatedSessionController extends Controller
         } elseif($user->role === 'admin'){
             return redirect('/dashboard/admin');
         }
-        return redirect('/dashboard/warga');
+        return redirect('/warga/dashboard');
     }
 
     /**

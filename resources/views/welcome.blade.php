@@ -136,7 +136,13 @@
             <div class="flex items-center gap-3">
                 @if (Route::has('login'))
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="text-sm font-semibold text-gray-700 hover:text-[#117347] transition px-3 py-2">Dashboard</a>
+                        @if(Auth::user()->role == "mitra")
+                        <a href="{{ url('/dashboard/mitra') }}" class="text-sm font-semibold text-gray-700 hover:text-[#117347] transition px-3 py-2">Dashboard</a>
+                        @elseif(Auth::user()->role == "warga")
+                        <a href="{{ url('/warga/dashboard') }}" class="text-sm font-semibold text-gray-700 hover:text-[#117347] transition px-3 py-2">Dashboard</a>
+                        @else
+                        <a href="{{ url('/dashboard/admin') }}" class="text-sm font-semibold text-gray-700 hover:text-[#117347] transition px-3 py-2">Dashboard</a>
+                        @endif                    
                     @else
                         <a href="{{ route('login') }}" class="text-sm font-semibold px-5 py-2 rounded-full border-2 border-[#117347] text-[#117347] hover:bg-[#eef6ea] transition">Log in</a>
                         @if (Route::has('register'))

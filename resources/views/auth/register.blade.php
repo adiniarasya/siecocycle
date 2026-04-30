@@ -1,77 +1,3 @@
-@if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
-
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
-
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="mt-4">
-            <x-input-label for="role" :value="__('role')" />
-
-            <select id="role" class="block mt-1 w-full"
-                            name="role"
-                            required autocomplete="role" >
-                            <option value="">Pilih Role</option>
-                            <option value="warga">Warga</option>
-                            <option value="mitra">Mitra</option>
-
-            </select>
-
-            <x-input-error :messages="$errors->get('role')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,126 +5,105 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>Register &mdash; Stisla</title>
 
-  <!-- General CSS Files -->
+  <!-- CSS -->
   <link rel="stylesheet" href="{{ asset('Stisla/dist/assets/modules/bootstrap/css/bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{ asset('Stisla/dist/assets/modules/fontawesome/css/all.min.css')}}">
-
-  <!-- CSS Libraries -->
   <link rel="stylesheet" href="{{ asset('Stisla/dist/assets/modules/jquery-selectric/selectric.css')}}">
-
-  <!-- Template CSS -->
   <link rel="stylesheet" href="{{ asset('Stisla/dist/assets/css/style.css')}}">
   <link rel="stylesheet" href="{{ asset('Stisla/dist/assets/css/components.css')}}">
-<!-- Start GA -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-94034622-3');
-</script>
-<!-- /END GA --></head>
+</head>
 
 <body>
-  <div id="app">
-    <section class="section">
-      <div class="container mt-5">
-        <div class="row">
-          <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
-            <div class="login-brand">
-              <img src="Stisla/dist/assets/img/stisla-fill.svg" alt="logo" width="100" class="shadow-light rounded-circle">
-            </div>
+<div id="app">
+<section class="section">
+<div class="container mt-5">
+<div class="row">
+<div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2">
 
-            <div class="card card-primary">
-              <div class="card-header"><h4>Register</h4></div>
-
-              <div class="card-body">
-                <form method="POST" action="{{ route('register') }}">
-                  
-                    <div class="form-group">
-                      <label for="name">Name</label>
-                      <input id="name" type="text" class="form-control" name="name" autofocus>
-                    </div>
-                  
-
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" type="email" class="form-control" name="email">
-                    <div class="invalid-feedback">
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="form-group col-6">
-                      <label for="password" class="d-block">Password</label>
-                      <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator" name="password">
-                      <div id="pwindicator" class="pwindicator">
-                        <div class="bar"></div>
-                        <div class="label"></div>
-                      </div>
-                    </div>
-                    <div class="form-group col-6">
-                      <label for="password_confirmation" class="d-block">Confirm Password</label>
-                      <input id="password_confirmation" type="password" class="form-control" name="password_confirmation">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="role">Role</label>
-                        <select id="role" class="form-control"
-                                name="role"
-                                required autocomplete="role" >
-                                <option value="">Pilih Role</option>
-                                <option value="warga">Warga</option>
-                                <option value="mitra">Mitra</option>
-                        </select>
-                    </div>
-                  </div>
-
-
-                  <div class="form-group">
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" name="agree" class="custom-control-input" id="agree">
-                      <label class="custom-control-label" for="agree">I agree with the terms and conditions</label>
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">
-                      Register
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <div class="simple-footer">
-              Copyright &copy; Stisla 2018
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  <div class="login-brand">
+    <img src="{{ asset('Stisla/dist/assets/img/logoeco.jpeg')}}" width="100" class="shadow-light rounded-circle">
   </div>
 
-  <!-- General JS Scripts -->
-  <script src="{{ asset('Stisla/dist/assets/modules/jquery.min.js')}}"></script>
-  <script src="{{ asset('Stisla/dist/assets/modules/popper.js')}}"></script>
-  <script src="{{ asset('Stisla/dist/assets/modules/tooltip.js')}}"></script>
-  <script src="{{ asset('Stisla/dist/assets/modules/bootstrap/js/bootstrap.min.js')}}"></script>
-  <script src="{{ asset('Stisla/dist/assets/modules/nicescroll/jquery.nicescroll.min.js')}}"></script>
-  <script src="{{ asset('Stisla/dist/assets/modules/moment.min.j')}}s"></script>
-  <script src="{{ asset('Stisla/dist/assets/js/stisla.js')}}"></script>
-  
-  <!-- JS Libraies -->
-  <script src="{{ asset('Stisla/dist/assets/modules/jquery-pwstrength/jquery.pwstrength.min.js')}}"></script>
-  <script src="{{ asset('Stisla/dist/assets/modules/jquery-selectric/jquery.selectric.min.js')}}"></script>
+  <div class="card card-primary">
+    <div class="card-header"><h4>Register</h4></div>
 
-  <!-- Page Specific JS File -->
-  <script src="{{ asset('Stisla/dist/assets/js/page/auth-register.js')}}"></script>
-  
-  <!-- Template JS File -->
-  <script src="{{ asset('Stisla/dist/assets/js/scripts.js')}}"></script>
-  <script src="{{ asset('Stisla/dist/assets/js/custom.js')}}"></script>
+    <div class="card-body">
+
+      {{-- ALERT --}}
+      @if(session('success'))
+        <div class="alert alert-success">
+          {{ session('success') }}
+        </div>
+      @endif
+
+      <form method="POST" action="{{ route('register') }}">
+        @csrf
+
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control" name="name" required>
+        </div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" class="form-control" name="email" required>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-6">
+            <label>Password</label>
+            <input type="password" class="form-control pwstrength" name="password">
+            <div id="pwindicator" class="pwindicator">
+              <div class="bar"></div>
+              <div class="label"></div>
+            </div>
+          </div>
+
+          <div class="form-group col-6">
+            <label>Confirm Password</label>
+            <input type="password" class="form-control" name="password_confirmation">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Role</label>
+          <select class="form-control" name="role" required>
+            <option value="">Pilih Role</option>
+            <option value="warga">Warga</option>
+            <option value="mitra">Mitra</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="agree">
+            <label class="custom-control-label" for="agree">
+              I agree with the terms and conditions
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-lg btn-block">
+            Register
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+</section>
+</div>
+
+<!-- JS -->
+<script src="{{ asset('Stisla/dist/assets/modules/jquery.min.js')}}"></script>
+<script src="{{ asset('Stisla/dist/assets/modules/bootstrap/js/bootstrap.min.js')}}"></script>
+<script src="{{ asset('Stisla/dist/assets/js/stisla.js')}}"></script>
+<script src="{{ asset('Stisla/dist/assets/js/scripts.js')}}"></script>
+
 </body>
 </html>
