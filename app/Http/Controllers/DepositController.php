@@ -116,7 +116,7 @@ class DepositController extends Controller
 
     public function scanAI()
     {
-        $text = "Scan Ai Deteksi Sampah";
+        $text = "Laporan Komunitas";
         return view('errors.comingsoon', compact('text'));
     }
 
