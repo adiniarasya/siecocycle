@@ -30,11 +30,30 @@ Route::get('/dashboard', function () {
 Route::get('/dashboard/mitra', [ MitraController::class, 'index'])->name('mitra.index')->middleware(['auth', 'role:mitra']);;
 
 Route::middleware(['auth', 'role:warga'])->group(function () {
-    Route::get('/dashboard/warga', [WargaController::class, 'index'])->name('warga.index');
-    Route::get('/warga/deposits/create', [DepositController::class, 'create'])->name('deposits.create');
-    Route::post('/warga/deposits/store', [DepositController::class, 'store'])->name('deposits.store');
-});
+    Route::get('/warga/dashboard', [WargaController::class, 'index'])
+        ->name('warga.dashboard');
+     Route::get('/warga/deposits/scan', [DepositController::class, 'scanAI'])
+        ->name('warga.scan');
 
+    Route::get('/warga/pilih-bank', [MapController::class, 'index'])
+        ->name('warga.map');
+
+    Route::get('/warga/deposits', [DepositController::class, 'index'])
+        ->name('warga.deposits.index');
+    Route::get('/warga/deposits/create', [DepositController::class, 'create'])
+        ->name('warga.deposits.create');
+    Route::post('/warga/deposits', [DepositController::class, 'store'])
+        ->name('warga.deposits.store');
+    Route::get('/warga/deposits/{id}/edit', [DepositController::class, 'edit'])
+        ->name('warga.deposits.edit');
+    Route::put('/warga/deposits/{id}', [DepositController::class, 'update'])
+        ->name('warga.deposits.update');
+    Route::delete('/warga/deposits/{id}', [DepositController::class, 'destroy'])
+        ->name('warga.deposits.destroy');
+    Route::get('/warga/deposits/{id}', [DepositController::class, 'show'])
+    ->name('warga.deposits.show');
+
+});
 Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/dashboard/admin', [ AdminController::class, 'index'])->name('admin.index');
     Route::get('/admin/mitra', [AdminController::class, 'mitra'])->name('admin.mitra');
