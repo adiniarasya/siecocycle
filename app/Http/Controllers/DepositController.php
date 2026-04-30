@@ -4,68 +4,119 @@ namespace App\Http\Controllers;
 
 use App\Models\Deposit;
 use App\Models\WasteType;
+use App\Models\Bank;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class DepositController extends Controller
 {
     public function index()
-{
-    $deposits = Deposit::with('wasteType')
-        ->where('user_id', Auth::id()) // biar per user
-        ->latest()
-        ->get();
+    {
+        $deposits = Deposit::with('wasteType')
+            ->where('user_id', Auth::id())
+            ->latest()
+            ->paginate(10);
 
-    $totalBerat = $deposits->sum('weight_kg');
+        return view('warga.deposits.index', compact('deposits'));
+    }
 
-    $totalPoin = $deposits->sum(function ($item) {
-        return $item->wasteType
-            ? $item->weight_kg * $item->wasteType->reward_per_kg
-            : 0;
-    });
-
-    $totalCO2 = $deposits->sum(function ($item) {
-        return $item->wasteType
-            ? $item->weight_kg * $item->wasteType->co2_factor
-            : 0;
-    });
-
-    return view('warga.dashboard', compact(
-        'deposits',
-        'totalBerat',
-        'totalPoin',
-        'totalCO2'
-    ));
-}
-
-    public function create()
+    public function create(Request $request)
     {
         $wasteTypes = WasteType::where('is_active', 1)->get();
-        return view('warga.deposits.create', compact('wasteTypes'));
+        $banks = Bank::all();
+        $selectedBank = null;
+        if ($request->bank_id) {
+            $selectedBank = Bank::find($request->bank_id);
+        }
+
+        return view('warga.deposits.create', compact(
+            'wasteTypes',
+            'banks',
+            'selectedBank'
+        ));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'waste_type_id' => 'required|exists:waste_types,id',
             'weight_kg' => 'required|numeric|min:0.1',
             'deposit_date' => 'required|date',
+            'bank_id' => 'required|exists:banks,id',
+            'notes' => 'nullable|string',
+            'photo_url' => 'nullable|url'
         ]);
 
-        $waste = WasteType::findOrFail($request->waste_type_id);
-        $poin = $request->weight_kg * $waste->reward_per_kg;
-        $co2  = $request->weight_kg * $waste->co2_factor;
+        $validated['user_id'] = Auth::id();
+        $validated['status'] = 'pending';
 
-        Deposit::create([
-            'user_id' => Auth::id(), 
-            'waste_type_id' => $request->waste_type_id,
-            'weight_kg' => $request->weight_kg,
-            'deposit_date' => $request->deposit_date,
-            'status' => 'pending',
-            'notes' => "Poin: $poin | CO2: $co2 kg"
-        ]);
+        Deposit::create($validated);
 
-        return redirect()->route('warga.index')
+        return redirect()->route('warga.dashboard')
             ->with('success', 'Berhasil tambah setoran!');
     }
+
+    public function edit(Deposit $deposit)
+    {
+        $this->authorizeDeposit($deposit);
+
+        $wasteTypes = WasteType::all();
+        $banks = Bank::all();
+
+        return view('warga.deposits.edit', compact(
+            'deposit',
+            'wasteTypes',
+            'banks'
+        ));
+    }
+
+    public function show($id)
+    {
+        $deposit = Deposit::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
+
+        return view('warga.deposits.show', compact('deposit'));
+    }
+
+    public function update(Request $request, Deposit $deposit)
+    {
+        $this->authorizeDeposit($deposit);
+
+        $validated = $request->validate([
+            'waste_type_id' => 'required|exists:waste_types,id',
+            'weight_kg' => 'required|numeric|min:0.1',
+            'deposit_date' => 'required|date',
+            'bank_id' => 'required|exists:banks,id',
+            'notes' => 'nullable|string',
+            'photo_url' => 'nullable|url'
+        ]);
+
+        $deposit->update($validated);
+
+        return redirect()->route('warga.deposits.index')
+            ->with('success', 'Data berhasil diupdate!');
+    }
+
+    public function destroy(Deposit $deposit)
+    {
+        $this->authorizeDeposit($deposit);
+
+        $deposit->delete();
+
+        return back()->with('success', 'Data berhasil dihapus!');
+    }
+
+    private function authorizeDeposit($deposit)
+    {
+        if ($deposit->user_id !== Auth::id()) {
+            abort(403);
+        }
+    }
+
+    public function scanAI()
+    {
+        return view('warga.scan');
+    }
+
 }
