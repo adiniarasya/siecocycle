@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Models\Bank;
 
 class RegisteredUserController extends Controller
 {
@@ -38,23 +39,41 @@ class RegisteredUserController extends Controller
             'role' => ['required','string'],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role,
-        ]);
+        if($request->role == 'mitra'){
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => $request->role,
+                'is_approved' => false
+            ]);
 
-        event(new Registered($user));
+            Bank::create([
+                'name' => $request->name,
+            ]);
 
-        Auth::login($user);
+            return redirect()->route('register')->with('success', 'Registrasi berhasil, silakan tunggu approval admin');
+        } else {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => $request->role,
+            ]);
 
-        if ($user->role === 'mitra'){
-            return redirect('/dashboard/mitra');
-        } elseif($user->role === 'admin'){
-            return redirect('/dashboard/admin');
+            event(new Registered($user));
+
+            Auth::login($user);
+            if ($user->role === 'mitra'){
+                return redirect('/dashboard/mitra');
+            } elseif($user->role === 'admin'){
+                return redirect('/dashboard/admin');
+            }
+            return redirect('/dashboard/warga');
         }
-        return redirect('/dashboard/warga');
+        
+
+        
         
 
     }

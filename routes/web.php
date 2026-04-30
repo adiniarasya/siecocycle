@@ -27,21 +27,20 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-route::get('/dashboard/mitra', [ MitraController::class, 'index'])->name('mitra.index')->middleware(['auth', 'role:mitra']);;
+Route::get('/dashboard/mitra', [ MitraController::class, 'index'])->name('mitra.index')->middleware(['auth', 'role:mitra']);;
 
 Route::middleware(['auth', 'role:warga'])->group(function () {
-
-    Route::get('/dashboard/warga', [WargaController::class, 'index'])
-        ->name('warga.index');
-
-    Route::get('/warga/deposits/create', [DepositController::class, 'create'])
-        ->name('deposits.create');
-
-    Route::post('/warga/deposits/store', [DepositController::class, 'store'])
-        ->name('deposits.store');
+    Route::get('/dashboard/warga', [WargaController::class, 'index'])->name('warga.index');
+    Route::get('/warga/deposits/create', [DepositController::class, 'create'])->name('deposits.create');
+    Route::post('/warga/deposits/store', [DepositController::class, 'store'])->name('deposits.store');
 });
 
-route::get('/dashboard/admin', [ AdminController::class, 'index'])->name('admin.index')->middleware(['auth', 'role:admin']);;
+Route::middleware(['auth', 'role:admin'])->group(function(){
+    Route::get('/dashboard/admin', [ AdminController::class, 'index'])->name('admin.index');
+    Route::get('/admin/mitra', [AdminController::class, 'mitra'])->name('admin.mitra');
+    Route::post('/admin/mitra/{id}/approve', [AdminController::class, 'approve'])->name('admin.mitra.approve');
+    Route::get('/admin/setoran', [AdminController::class, 'setoran'])->name('admin.setoran');
+});
 
 
 Route::middleware('auth')->group(function () {

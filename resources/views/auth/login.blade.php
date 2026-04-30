@@ -38,6 +38,11 @@
 
             <div class="card card-primary">
               <div class="card-header"><h4>Login</h4></div>
+              @error('email')
+    <div class="alert alert-danger">
+        {{ $message }}
+    </div>
+@enderror
 
               <div class="card-body">
                 <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate="">
@@ -54,7 +59,7 @@
                     <div class="d-block">
                     	<label for="password" class="control-label">Password</label>
                       <div class="float-right">
-                        <a href="auth-forgot-password.html" class="text-small">
+                        <a href="forgot-password" class="text-small">
                           Forgot Password?
                         </a>
                       </div>
@@ -64,16 +69,12 @@
                       please fill in your password
                     </div>
                   </div>
-
-                 
-
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                       Login
                     </button>
                   </div>
                 </form>
-
               </div>
             </div>
             <div class="mt-5 text-muted text-center">

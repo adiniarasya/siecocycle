@@ -14,24 +14,43 @@
 
       <!-- ===== MENU TANPA DROPDOWN ===== -->
       <li class="menu-header">Main Menu</li>
-
+      @if(Auth::user()->role == "warga")
       <li>
         <a class="nav-link" href="/dashboard/warga">
           <i class="fas fa-home"></i>
           <span>Dashboard</span>
         </a>
       </li>
-
-      <li>
+      @elseif(Auth::user()->role == "mitra")
+        <li>
         <a class="nav-link" href="/dashboard/mitra">
-          <i class="fas fa-recycle"></i>
-          <span>Data Sampah</span>
+          <i class="fas fa-home"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      @else
+      <li>
+        <a class="nav-link" href="/dashboard/admin">
+          <i class="fas fa-home"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a class="nav-link" href="/admin/mitra">
+          <i class="fas fa-university"></i>
+          <span>Data Mitra</span>
         </a>
       </li>
 
 
       <!-- ===== MENU DENGAN DROPDOWN ===== -->
       <li class="menu-header">Management</li>
+       <li>
+        <a class="nav-link" href="/admin/setoran">
+          <i class="fas fa-recycle"></i>
+          <span>Data Setoran</span>
+        </a>
+      </li>
 
       <!-- Dropdown 1 -->
       <li class="dropdown">
@@ -56,6 +75,8 @@
           <li><a class="nav-link" href="#">Penukaran</a></li>
         </ul>
       </li>
+      @endif
+      
 
     </ul>
 

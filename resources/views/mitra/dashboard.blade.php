@@ -4,39 +4,6 @@
 
 @section('content')
 
-<style>
-    :root {
-        --primary-navy: #0f172a;
-        --border-color: #e2e8f0;
-        --text-main: #334155;
-        --text-muted: #64748b;
-    }
-
-    .card-custom {
-        border-radius: 15px;
-        border: none;
-        color: white;
-    }
-
-    .card-blue { background: #3b82f6; }
-    .card-red { background: #ef4444; }
-    .card-yellow { background: #f59e0b; }
-
-    .btn-primary-custom {
-        background-color: var(--primary-navy);
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 10px;
-        font-weight: 600;
-        text-decoration: none;
-    }
-
-    .btn-primary-custom:hover {
-        background-color: #1e293b;
-        color: white;
-    }
-</style>
 
 <div class="container-fluid">
 
@@ -119,14 +86,14 @@
             <button type="button" 
                     data-decision="rejected"
                     class="btn btn-sm btn-danger btn-decision me-1">
-                ❌
+                <i class="fas fa-times"></i>
             </button>
 
             <!-- APPROVE -->
             <button type="button" 
                     data-decision="verified"
                     class="btn btn-sm btn-success btn-decision">
-                ✔
+                <i class="fas fa-check"></i>
             </button>
         </form>
 

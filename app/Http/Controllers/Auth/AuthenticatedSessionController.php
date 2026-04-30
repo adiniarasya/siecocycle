@@ -30,6 +30,15 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
         
         $user = Auth::user();
+
+        if (!$user->is_approved && $user->role == 'mitra') {
+        Auth::logout();
+
+        return back()->withErrors([
+            'email' => 'Akun kamu belum di-approve oleh admin'
+        ]);
+        }
+        
         if ($user->role === 'mitra'){
             return redirect('/dashboard/mitra');
         } elseif($user->role === 'admin'){
