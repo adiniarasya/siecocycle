@@ -91,7 +91,7 @@
                             Don't have an account? <a href="/register">Create One</a>
                         </div>
                         <div class="simple-footer">
-                            Copyright &copy; Stisla 2018
+                            Copyright &copy; Ecocycle
                         </div>
                     </div>
                 </div>
@@ -107,41 +107,6 @@
     <script src="{{ asset('Stisla/dist/assets/modules/nicescroll/jquery.nicescroll.min.js')}}"></script>
     <script src="{{ asset('Stisla/dist/assets/modules/moment.min.js')}}"></script>
     <script src="{{ asset('Stisla/dist/assets/js/stisla.js')}}"></script>
-
-<<<<<<< HEAD
-    <!-- JS Libraies -->
-=======
-                  <div class="form-group">
-                    <div class="d-block">
-                    	<label for="password" class="control-label">Password</label>
-                      <div class="float-right">
-                        <a href="forgot-password" class="text-small">
-                          Forgot Password?
-                        </a>
-                      </div>
-                    </div>
-                    <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
-                    <div class="invalid-feedback">
-                      please fill in your password
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                      Login
-                    </button>
-                  </div>
-                  <div class="mt-5 text-muted text-center">
-                     Don't have an account? <a href="/register">Create One</a>
-                </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
->>>>>>> c79e4c4eb5c7cb3c65d918600094b2376175199c
 
     <!-- Page Specific JS File -->
 
