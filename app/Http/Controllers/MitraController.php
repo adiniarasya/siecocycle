@@ -9,43 +9,43 @@ use App\Models\Deposit;
 class MitraController extends Controller
 {
     public function index()
-{
-    // DATA BANK (opsional)
-    $totalBank = Bank::count();
-    $banks = Bank::latest()->get();
+    {
+        // Ambil bank milik user yang login
+        $bank = auth()->user()->bank;
+        if (!$bank) {
+            return back()->with('error', 'Akun bank tidak valid. Hubungi admin.');
+        }
 
-    // DATA DEPOSIT
-    $deposits = Deposit::with(['wasteType', 'user'])->latest()->get();
+        // Filter deposit berdasarkan bank_id
+        $pendingDeposits = Deposit::where('bank_id', $bank->id)
+            ->where('status', 'pending')
+            ->with(['user', 'wasteType'])
+            ->orderBy('deposit_date', 'desc')
+            ->paginate(15);
 
-    // ✅ SUMMARY (INI YANG KURANG TADI)
-    $totalPending = $deposits->where('status', 'pending')->count();
-    $totalVerified = $deposits->where('status', 'verified')->count();
-    $totalSampah = $deposits->sum('weight_kg');
+        $totalVerified = Deposit::where('bank_id', $bank->id)
+            ->where('status', 'verified')
+            ->count();
 
-    // OPSIONAL (kalau mau dipakai nanti)
-    $totalPoin = $deposits->sum(function ($item) {
-        return $item->wasteType
-            ? $item->weight_kg * $item->wasteType->reward_per_kg
-            : 0;
-    });
+        $totalPending = Deposit::where('bank_id', $bank->id)
+            ->where('status', 'pending')
+            ->count();
 
-    return view('mitra.dashboard', compact(
-        'totalBank',
-        'banks',
-        'deposits',
-        'totalPending',
-        'totalVerified',
-        'totalSampah',
-        'totalPoin'
-    ));
-}
+        $totalSampah = Deposit::where('bank_id', $bank->id)
+            ->where('status', 'verified')
+            ->sum('weight_kg');
+
+        return view('mitra.dashboard', compact('pendingDeposits', 'totalVerified', 'totalPending', 'totalSampah', 'bank'));
+    }
+    
+    
     public function decision(Request $request, $id)
-{
-    $deposit = Deposit::findOrFail($id);
+    {
+        $deposit = Deposit::findOrFail($id);
 
-    $deposit->status = $request->status;
-    $deposit->save();
+        $deposit->status = $request->status;
+        $deposit->save();
 
-    return back()->with('success', 'Status berhasil diupdate');
-}
+        return back()->with('success', 'Status berhasil diupdate');
+    }
 }

@@ -14,7 +14,9 @@ class Deposit extends Model
         'photo_url',
         'notes',
         'status',
-        'bank_id'
+        'bank_id',
+        'co2_saved',  
+        'points',
     ];
 
     protected $casts = [
@@ -37,11 +39,15 @@ class Deposit extends Model
         return $this->belongsTo(Bank::class);
     }
 
-    // ACCESSOR
+    public function getCo2SavedAttribute()
+    {
+        return $this->weight_kg * $this->wasteType->co2_factor;
+    }
     public function getPointsAttribute()
     {
-        return $this->weight_kg * ($this->wasteType->reward_per_kg ?? 0);
+        return $this->weight_kg * $this->wasteType->reward_per_kg;
     }
+
 
     public function getFormattedDateAttribute()
     {

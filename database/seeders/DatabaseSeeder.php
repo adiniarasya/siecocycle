@@ -41,6 +41,15 @@ class DatabaseSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now()  
             ],
+            [
+                'name' => 'Bank Sampah Maju Jaya',
+                'email' => 'majujaya@ecocycle.id',
+                'password' => Hash::make('123456789'),
+                'role' => 'mitra',
+                'rw_name' => 'RW 05',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
         ]);
 
         DB::table('banks')->insert([
@@ -53,6 +62,7 @@ class DatabaseSeeder extends Seeder
                 'contact' => '081234567890',
                 'created_at' => now(),
                 'updated_at' => now(),
+                'user_id' => 3
             ],
             [
                 'name' => 'Bank Sampah Berseri',

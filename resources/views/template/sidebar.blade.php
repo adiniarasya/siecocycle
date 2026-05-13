@@ -16,7 +16,7 @@
       <li class="menu-header">Main Menu</li>
       @if(Auth::user()->role == "warga")
       <li>
-        <a class="nav-link" href="/dashboard/warga">
+        <a class="nav-link" href="/warga/dashboard">
           <i class="fas fa-home"></i>
           <span>Dashboard</span>
         </a>

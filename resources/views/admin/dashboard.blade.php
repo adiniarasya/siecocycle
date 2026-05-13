@@ -72,8 +72,8 @@
                     <th>No</th>
                     <th>Nama</th>
                     <th>Email</th>
+                    <th>Phone</th>
                     <th>Role</th>
-                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -82,14 +82,8 @@
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $u->name }}</td>
                     <td>{{ $u->email }}</td>
+                    <td>{{ $u->phone }}</td>
                     <td>{{ $u->role }}</td>
-                    <td>
-                        @if($u->is_approved)
-                            <span class="badge badge-success">Approved</span>
-                        @else
-                            <span class="badge badge-warning">Pending</span>
-                        @endif
-                    </td>
                 </tr>
                 @empty
                 <tr>

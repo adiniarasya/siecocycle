@@ -45,6 +45,12 @@
                             <div class="card-header">
                                 <h4>Login</h4>
                             </div>
+                            @if(session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                            @endif
+                            
                             @error('email')
                             <div class="alert alert-danger">
                                 {{ $message }}

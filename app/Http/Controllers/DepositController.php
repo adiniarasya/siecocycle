@@ -17,18 +17,36 @@ class DepositController extends Controller
             ->latest()
             ->paginate(10);
 
-        return view('warga.deposits.index', compact('deposits'));
+        return view('warga.dashboard', compact('deposits'));
     }
 
     public function create(Request $request)
     {
-        $wasteTypes = WasteType::where('is_active', 1)->get();
-        $banks = Bank::all();
-        $selectedBank = null;
-        if ($request->bank_id) {
-            $selectedBank = Bank::find($request->bank_id);
-        }
+        // $wasteTypes = WasteType::where('is_active', 1)->get();
+        // $selectedBankId = $request->query('bank_id');
 
+        // $banks = Bank::whereHas('user', function ($q) {
+        //     $q->where('is_approved', true);
+        // })->get(); // bank yang sudah disetujui
+
+
+        // $selectedBank = null;
+        // if ($selectedBankId) {
+        //     $selectedBank = Bank::find($selectedBankId);
+        // }
+
+        $wasteTypes = WasteType::where('is_active', true)->get();
+        $selectedBankId = $request->query('bank_id'); // ambil dari URL
+
+        $banks = Bank::whereHas('user', function ($q) {
+            $q->where('is_approved', true);
+        })->get(); 
+        
+        $selectedBank = null;
+        if ($selectedBankId) {
+            $selectedBank = Bank::find($selectedBankId);
+        }
+        
         return view('warga.deposits.create', compact(
             'wasteTypes',
             'banks',
@@ -38,36 +56,46 @@ class DepositController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'waste_type_id' => 'required|exists:waste_types,id',
+            'bank_id' => 'required|exists:banks,id',
             'weight_kg' => 'required|numeric|min:0.1',
             'deposit_date' => 'required|date',
-            'bank_id' => 'required|exists:banks,id',
+            'photo_url' => 'nullable|url',
             'notes' => 'nullable|string',
-            'photo_url' => 'nullable|url'
+            'ai_scanned' => 'sometimes|boolean',
         ]);
 
-        $validated['user_id'] = Auth::id();
-        $validated['status'] = 'pending';
+        $wasteType = WasteType::find($request->waste_type_id);
+        $co2Saved = $request->weight_kg * $wasteType->co2_factor;
+        $points = $request->weight_kg * $wasteType->reward_per_kg;
 
-        Deposit::create($validated);
-
+        $deposit = Deposit::create([
+            'user_id' => Auth::id(),
+            'waste_type_id' => $request->waste_type_id,
+            'bank_id' => $request->bank_id,
+            'weight_kg' => $request->weight_kg,
+            'deposit_date' => $request->deposit_date,
+            'photo_url' => $request->photo_url,
+            'notes' => $request->notes,
+            'status' => 'pending',
+            'ai_scanned' => $request->ai_scanned ?? false,
+            'co2_saved' => $co2Saved,
+            'points' => $points,
+        ]);
+        
         return redirect()->route('warga.dashboard')
             ->with('success', 'Berhasil tambah setoran!');
     }
 
     public function edit(Deposit $deposit)
     {
-        $this->authorizeDeposit($deposit);
-
-        $wasteTypes = WasteType::all();
-        $banks = Bank::all();
-
-        return view('warga.deposits.edit', compact(
-            'deposit',
-            'wasteTypes',
-            'banks'
-        ));
+        if ($deposit->user_id !== Auth::id()) {
+            abort(403);
+        }
+        
+        $wasteTypes = WasteType::where('is_active', true)->get();
+        return view('warga.deposits.edit', compact('deposit', 'wasteTypes'));
     }
 
     public function show($id)
@@ -81,21 +109,20 @@ class DepositController extends Controller
 
     public function update(Request $request, Deposit $deposit)
     {
-        $this->authorizeDeposit($deposit);
+         if ($deposit->user_id !== Auth::id()) {
+            abort(403);
+        }
 
-        $validated = $request->validate([
+        $request->validate([
             'waste_type_id' => 'required|exists:waste_types,id',
             'weight_kg' => 'required|numeric|min:0.1',
             'deposit_date' => 'required|date',
-            'bank_id' => 'required|exists:banks,id',
             'notes' => 'nullable|string',
-            'photo_url' => 'nullable|url'
         ]);
 
-        $deposit->update($validated);
+        $deposit->update($request->only(['waste_type_id', 'weight_kg', 'deposit_date', 'notes']));
 
-        return redirect()->route('warga.deposits.index')
-            ->with('success', 'Data berhasil diupdate!');
+        return redirect()->route('warga.dashboard')->with('success', 'Data berhasil diupdate!');
     }
 
     public function destroy(Deposit $deposit)
@@ -116,7 +143,7 @@ class DepositController extends Controller
 
     public function scanAI()
     {
-        $text = "Laporan Komunitas";
+        $text = "Scan AI";
         return view('errors.comingsoon', compact('text'));
     }
 

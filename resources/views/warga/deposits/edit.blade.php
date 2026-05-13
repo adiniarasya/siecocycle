@@ -13,17 +13,17 @@
                         Edit Setoran
                     </h4>
 
-                    <form method="POST" action="{{ route('warga.deposits.update', $deposit) }}">
+                    <form method="POST" action="{{ route('deposits.update', $deposit) }}">
                         @csrf
                         @method('PUT')
 
                         <!-- Jenis Sampah -->
                         <div class="mb-3">
                             <label class="form-label">Jenis Sampah</label>
-                            <select name="waste_type_id" class="form-select" required>
+                            <select name="waste_type_id" class="form-control" required>
                                 @foreach($wasteTypes as $t)
                                 <option value="{{ $t->id }}" {{ $deposit->waste_type_id == $t->id ? 'selected' : '' }}>
-                                    {{ $t->name }}
+                                    {{ $t->name }} ({{ number_format($t->reward_per_kg) }} poin/kg)
                                 </option>
                                 @endforeach
                             </select>

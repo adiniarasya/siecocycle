@@ -40,7 +40,8 @@ class RegisteredUserController extends Controller
         ]);
 
         if($request->role == 'mitra'){
-            $user = User::create([
+            
+        $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
@@ -48,11 +49,15 @@ class RegisteredUserController extends Controller
                 'is_approved' => false
             ]);
 
-            Bank::create([
+             $bank  = Bank::create([
                 'name' => $request->name,
+                'user_id' => $user->id,
             ]);
 
-            return redirect()->route('register')->with('success', 'Registrasi berhasil, silakan tunggu approval admin');
+            $user->bank_id = $bank->id;
+            $user->save();
+            
+            return redirect()->route('login')->with('success', 'Registrasi berhasil, silakan tunggu approval admin');
         } else {
             $user = User::create([
                 'name' => $request->name,
@@ -69,7 +74,7 @@ class RegisteredUserController extends Controller
             } elseif($user->role === 'admin'){
                 return redirect('/dashboard/admin');
             }
-            return redirect('/dashboard/warga');
+            return redirect('/warga/dashboard');
         }
         
 

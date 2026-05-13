@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Deposit;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Bank extends Model
@@ -12,6 +14,18 @@ class Bank extends Model
         'latitude',
         'longitude',
         'operation_hours',
-        'contact'
+        'contact',
+        'user_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    
+    public function deposits()
+    {
+        return $this->hasMany(Deposit::class);
+    }
 }

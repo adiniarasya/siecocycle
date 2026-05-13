@@ -59,7 +59,7 @@
                 <i class="fas fa-camera"></i> AI Scan
             </a>
 
-            <a href="{{ route('warga.deposits.create') }}" class="btn btn-primary btn-sm">
+            <a href="{{ route('deposits.create') }}" class="btn btn-primary btn-sm">
                 <i class="fas fa-plus"></i> Catat Setoran
             </a>
 
@@ -99,7 +99,7 @@
 
                         <td>{{ $item->weight_kg * $item->wasteType->reward_per_kg }}</td>
 
-                        <!-- STATUS -->
+                       
                         <td>
                             @if($item->status == 'pending')
                             <span class="badge bg-warning text-dark">Pending</span>
@@ -110,23 +110,23 @@
                             @endif
                         </td>
 
-                        <!-- AKSI -->
+                       
                         <td>
                             <div class="d-flex justify-content-center gap-2">
 
-                                <a href="{{ route('warga.deposits.show', $item->id) }}"
+                                <a href="{{ route('deposits.show', $item->id) }}"
                                     class="btn btn-info btn-sm text-white" data-bs-toggle="tooltip" title="Detail">
                                     <i class="fas fa-eye"></i>
                                 </a>
 
                                 @if($item->status == 'pending')
-                                <a href="{{ route('warga.deposits.edit', $item->id) }}" class="btn btn-warning btn-sm"
+                                <a href="{{ route('deposits.edit', $item->id) }}" class="btn btn-warning btn-sm"
                                     data-bs-toggle="tooltip" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 @endif
 
-                                <form action="{{ route('warga.deposits.destroy', $item->id) }}" method="POST"
+                                <form action="{{ route('deposits.destroy', $item->id) }}" method="POST"
                                     onsubmit="return confirm('Yakin hapus data ini?')">
                                     @csrf
                                     @method('DELETE')
@@ -150,12 +150,13 @@
                 </tbody>
 
             </table>
+            {{ $deposits->links() }}
         </div>
 
     </div>
 </div>
 
-<!-- TOOLTIP -->
+
 <script>
 document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
     new bootstrap.Tooltip(el)

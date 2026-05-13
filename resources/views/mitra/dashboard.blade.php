@@ -1,6 +1,6 @@
 @extends('template.layout')
 
-@section('title', 'Dashboard')
+@section('title', 'Dashboard Bank Sampah')
 
 @section('content')
 
@@ -49,62 +49,52 @@
                     </thead>
 
                     <tbody>
-                    @forelse($deposits ?? [] as $index => $item)
+                    @forelse($pendingDeposits ?? [] as $index => $item)
                         <tr>
                             <td class="text-center">{{ $index + 1 }}</td>
 
-                            <!-- WARGA -->
+                            
                             <td>
                                 {{ $item->user->name ?? 'Tidak ada' }}
                             </td>
-
-                            <!-- JENIS SAMPAH -->
                             <td>
                                 {{ $item->wasteType->name ?? 'Tidak ada' }}
                             </td>
-
-                            <!-- BERAT -->
                             <td class="text-center">
                                 {{ $item->weight_kg ?? 0 }} Kg
                             </td>
-
-                            <!-- TANGGAL -->
                             <td class="text-center">
                                 {{ $item->deposit_date 
                                     ? \Carbon\Carbon::parse($item->deposit_date)->format('d M Y') 
                                     : '-' }}
                             </td>
-
-                            <!-- STATUS -->
                            <td class="text-center">
 
-    @if($item->status == 'pending')
-        <form action="{{ url('deposit/'.$item->id.'/decision') }}" method="POST" class="d-inline">
-            @csrf
+                            @if($item->status == 'pending')
+                                <form action="{{ url('deposit/'.$item->id.'/decision') }}" method="POST" class="d-inline">
+                                    @csrf
 
-            <!-- REJECT -->
-            <button type="button" 
-                    data-decision="rejected"
-                    class="btn btn-sm btn-danger btn-decision me-1">
-                <i class="fas fa-times"></i>
-            </button>
+                                    <button type="button" 
+                                            data-decision="rejected"
+                                            class="btn btn-sm btn-danger btn-decision me-1">
+                                        <i class="fas fa-times"></i>
+                                    </button>
 
-            <!-- APPROVE -->
-            <button type="button" 
-                    data-decision="verified"
-                    class="btn btn-sm btn-success btn-decision">
-                <i class="fas fa-check"></i>
-            </button>
-        </form>
+                                    <button type="button" 
+                                            data-decision="verified"
+                                            class="btn btn-sm btn-success btn-decision">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                </form>
 
-    @elseif($item->status == 'verified')
-        <span class="badge bg-success">Verified</span>
+                            @elseif($item->status == 'verified')
+                                <span class="badge bg-success">Verified</span>
 
-    @else
-        <span class="badge bg-danger">Rejected</span>
-    @endif
+                            @else
+                                <span class="badge bg-danger">Rejected</span>
+                            @endif
 
-</td>
+                        </td>
                         </tr>
                     @empty
                         <tr>

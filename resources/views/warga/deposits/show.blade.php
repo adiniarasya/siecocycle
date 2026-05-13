@@ -67,7 +67,7 @@
                         </a>
 
                         @if($deposit->status == 'pending')
-                        <a href="{{ route('warga.deposits.edit', $deposit) }}"
+                        <a href="{{ route('deposits.edit', $deposit) }}"
                             class="btn btn-warning">
                             Edit
                         </a>

@@ -35,23 +35,28 @@ Route::middleware(['auth', 'role:warga'])->group(function () {
      Route::get('/warga/deposits/scan', [DepositController::class, 'scanAI'])
         ->name('warga.scan');
 
-    Route::get('/warga/pilih-bank', [MapController::class, 'index'])
-        ->name('warga.map');
+    // Route::get('/warga/pilih-bank', [MapController::class, 'index'])
+    //     ->name('warga.map');
 
-    Route::get('/warga/deposits', [DepositController::class, 'index'])
-        ->name('warga.deposits.index');
-    Route::get('/warga/deposits/create', [DepositController::class, 'create'])
-        ->name('warga.deposits.create');
-    Route::post('/warga/deposits', [DepositController::class, 'store'])
-        ->name('warga.deposits.store');
-    Route::get('/warga/deposits/{id}/edit', [DepositController::class, 'edit'])
-        ->name('warga.deposits.edit');
-    Route::put('/warga/deposits/{id}', [DepositController::class, 'update'])
-        ->name('warga.deposits.update');
-    Route::delete('/warga/deposits/{id}', [DepositController::class, 'destroy'])
-        ->name('warga.deposits.destroy');
-    Route::get('/warga/deposits/{id}', [DepositController::class, 'show'])
-    ->name('warga.deposits.show');
+    // Route::get('/warga/deposits', [DepositController::class, 'index'])
+    //     ->name('warga.deposits.index');
+    // Route::get('/warga/deposits/create', [DepositController::class, 'create'])
+    //     ->name('warga.deposits.create');
+    // Route::post('/warga/deposits', [DepositController::class, 'store'])
+    //     ->name('warga.deposits.store');
+    // Route::get('/warga/deposits/{id}/edit', [DepositController::class, 'edit'])
+    //     ->name('warga.deposits.edit');
+    // Route::put('/warga/deposits/{id}', [DepositController::class, 'update'])
+    //     ->name('warga.deposits.update');
+    // Route::delete('/warga/deposits/{id}', [DepositController::class, 'destroy'])
+    //     ->name('warga.deposits.destroy');
+    // Route::get('/warga/deposits/{id}', [DepositController::class, 'show'])
+    // ->name('warga.deposits.show');
+
+    Route::resource('deposits', DepositController::class);
+
+    Route::get('/pilih-bank', [MapController::class, 'index'])->name('warga.pilih-bank');
+    Route::post('/pilih-bank', [MapController::class, 'selectBank'])->name('warga.map.select');
 
 });
 Route::middleware(['auth', 'role:admin'])->group(function(){
