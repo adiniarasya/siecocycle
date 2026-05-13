@@ -37,6 +37,9 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required','string'],
+            'address' => ['nullable', 'string', 'max:500'],
+            'phone' => ['nullable', 'string', 'max:15'],
+            'rw_name' => ['nullable', 'string', 'max:20', 'required_if:role,warga'],
         ]);
 
         if($request->role == 'mitra'){
@@ -46,11 +49,16 @@ class RegisteredUserController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'role' => $request->role,
-                'is_approved' => false
+                'address' => $request->address,
+                'phone' => $request->phone,
+                'is_approved' => false,
+                'rw_name' => $request->role == 'warga' ? $request->rw_name : null,
             ]);
 
              $bank  = Bank::create([
                 'name' => $request->name,
+                'address' => $request->address,
+                'contact' => $request->phone,
                 'user_id' => $user->id,
             ]);
 
@@ -64,6 +72,9 @@ class RegisteredUserController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'role' => $request->role,
+                'address' => $request->address,
+                'phone' => $request->phone,
+                'rw_name' => $request->role == 'warga' ? $request->rw_name : null,
             ]);
 
             event(new Registered($user));

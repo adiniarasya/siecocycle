@@ -78,7 +78,7 @@
 
         // Fungsi pilih bank, redirect ke form setoran dengan bank_id
         function pilihBank(bankId) {
-            window.location.href = "{{ route('warga.deposits.create') }}?bank_id=" + bankId;
+            window.location.href = "{{ route('deposits.create') }}?bank_id=" + bankId;
         }
 
         // Geolokasi pengguna

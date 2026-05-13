@@ -19,7 +19,7 @@
     <!-- Start GA -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
+        window.dataLayer = window.dataLayer || [];
 
     function gtag() {
         dataLayer.push(arguments);
@@ -32,25 +32,28 @@
 </head>
 
 <body>
-  <div id="app">
-    <section class="section">
-      <div class="container mt-5">
-        <div class="row">
-          <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-            <div class="login-brand">
-              <img src="{{ asset('Stisla/dist/assets/img/logoeco.jpeg')}}" alt="logo" width="100" class="shadow-light rounded-circle">
-            </div>
+    <div id="app">
+        <section class="section">
+            <div class="container mt-5">
+                <div class="row">
+                    <div
+                        class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
+                        <div class="login-brand">
+                            <img src="{{ asset('Stisla/dist/assets/img/logoeco.jpeg')}}" alt="logo" width="100"
+                                class="shadow-light rounded-circle">
+                        </div>
 
                         <div class="card card-primary">
                             <div class="card-header">
                                 <h4>Login</h4>
                             </div>
+
                             @if(session('success'))
                             <div class="alert alert-success">
                                 {{ session('success') }}
                             </div>
                             @endif
-                            
+
                             @error('email')
                             <div class="alert alert-danger">
                                 {{ $message }}
@@ -119,6 +122,23 @@
     <!-- Template JS File -->
     <script src="{{ asset('Stisla/dist/assets/js/scripts.js')}}"></script>
     <script src="{{ asset('Stisla/dist/assets/js/custom.js')}}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const alerts = document.querySelectorAll('.alert');
+            
+            alerts.forEach(function(alert) {
+               
+                setTimeout(function() {
+                    alert.style.transition = 'opacity 0.5s ease';
+                    alert.style.opacity = '0';
+                    setTimeout(function() {
+                        alert.remove();
+                    }, 500); 
+                }, 3000);
+            });
+        });
+    </script>
 </body>
 
 </html>
