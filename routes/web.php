@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DepositController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\MitraController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\WargaController;
-use App\Http\Controllers\DepositController;
-use App\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,9 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/admin/mitra', [AdminController::class, 'mitra'])->name('admin.mitra');
     Route::post('/admin/mitra/{id}/approve', [AdminController::class, 'approve'])->name('admin.mitra.approve');
     Route::get('/admin/setoran', [AdminController::class, 'setoran'])->name('admin.setoran');
+
+    Route::get('/reports', [ReportController::class, 'index'])->name('admin.reports.index');
+    Route::get('/reports/pdf', [ReportController::class, 'pdf'])->name('admin.reports.pdf');
 });
 
 

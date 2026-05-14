@@ -1,33 +1,35 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Pilih Bank Sampah Tujuan') }}
-        </h2>
-    </x-slot>
+@extends('template.layout')
 
-    <div class="py-6">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <p class="mb-4 text-gray-600">Klik pada marker bank sampah di peta, lalu pilih bank tersebut untuk
-                    setoran Anda.</p>
+@section('title', 'Pilih Bank Sampah Tujuan')
+
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+
+            <div class="card shadow-sm border-0 rounded-3">
+                <div class="card-body p-4">
+                    <p class="mb-4 text-gray-600">Klik pada marker bank sampah di peta, lalu pilih bank tersebut untuk
+                        setoran Anda.</p>
 
 
-                <div class="mb-4 flex justify-between items-center">
-                    <button onclick="getUserLocation()"
-                        class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg shadow">
-                        📍 Tampilkan Lokasi Saya
-                    </button>
-                    <div id="locationStatus" class="text-sm text-gray-500"></div>
+                    <div class="mb-4 flex justify-between items-center">
+                        <button onclick="getUserLocation()" class="btn btn-success px-4">
+                            Tampilkan Lokasi Saya
+                        </button>
+                        <div id="locationStatus" class="text-sm text-gray-500"></div>
+                    </div>
+
+                    <!-- Container peta -->
+                    <div id="map" style="height: 500px; width: 100%; border-radius: 12px;"></div>
                 </div>
-
-                <!-- Container peta -->
-                <div id="map" style="height: 500px; width: 100%; border-radius: 12px;"></div>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        let map;
+<script>
+    let map;
         let userMarker;
         let currentInfoWindow = null;
         const banks = @json($banks);
@@ -113,9 +115,9 @@
                 statusDiv.innerHTML = '<span class="text-red-600"> Browser tidak mendukung geolokasi.</span>';
             }
         }
-    </script>
+</script>
 
-    <!-- Load Google Maps API dengan callback -->
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ $apiKey }}&callback=initMap">
-    </script>
-</x-app-layout>
+<!-- Load Google Maps API dengan callback -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ $apiKey }}&callback=initMap">
+</script>
+@endsection

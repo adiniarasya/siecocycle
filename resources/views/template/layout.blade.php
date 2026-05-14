@@ -77,5 +77,6 @@
   <!-- Template JS File -->
   <script src="{{ asset('Stisla/dist/assets/js/scripts.js')}}"></script>
   <script src="{{ asset('Stisla/dist/assets/js/custom.js')}}"></script>
+  @stack('scripts')
 </body>
 </html>

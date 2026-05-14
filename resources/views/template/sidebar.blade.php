@@ -85,6 +85,14 @@
           <li><a class="nav-link" href="#">Penukaran</a></li>
         </ul>
       </li>
+
+      <li class="menu-header">Reports</li>
+      <li>
+        <a class="nav-link" href="/reports">
+          <i class="fas fa-file"></i>
+          <span>Laporan</span>
+        </a>
+      </li>
       @endif
       
 
