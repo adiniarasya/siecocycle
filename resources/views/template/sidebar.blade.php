@@ -45,12 +45,7 @@
           <span>Dashboard</span>
         </a>
       </li>
-      <li>
-        <a class="nav-link" href="/admin/mitra">
-          <i class="fas fa-university"></i>
-          <span>Data Mitra</span>
-        </a>
-      </li>
+      
 
 
       <!-- ===== MENU DENGAN DROPDOWN ===== -->
@@ -61,7 +56,12 @@
           <span>Data Setoran</span>
         </a>
       </li>
-
+      <li>
+        <a class="nav-link" href="/admin/mitra">
+          <i class="fas fa-university"></i>
+          <span>Data Mitra</span>
+        </a>
+      </li>
       <!-- Dropdown 1 -->
       <li class="dropdown">
         <a href="#" class="nav-link has-dropdown">

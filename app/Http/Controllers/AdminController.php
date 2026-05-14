@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bank;
 use Illuminate\Http\Request;
 Use App\Models\User;
 Use App\Models\Deposit;
@@ -33,15 +34,80 @@ class AdminController extends Controller
     {
         $pending = User::where('role', 'mitra')
                     ->where('is_approved', false)
+                    ->with('bank')
                     ->get();
 
         $approved = User::where('role', 'mitra')
                         ->where('is_approved', true)
+                        ->with('bank')
                         ->get();
 
         return view('admin.mitra.index', compact('pending','approved'));
     }
 
+    public function banksEdit(Bank $bank)
+    {
+        $user = $bank->user;
+        return view('admin.mitra.edit', compact('bank','user'));
+    }
+
+    public function banksUpdate(Request $request, Bank $bank)
+    {
+        $user = $bank->user;
+
+        $validatedBank = $request->validate([
+            'name' => 'required|string|max:100',
+            'address' => 'nullable|string',
+            'operation_hours' => 'nullable|string|max:100',
+            'contact' => 'nullable|string|max:15',
+        ]);
+
+        $validatedUser = $request->validate([
+            'user_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . ($user ? $user->id : 'NULL'),
+        ]);
+
+        // Update bank
+        $bank->update($validatedBank);
+
+        // Update user jika ada
+        if ($user) {
+            $user->name = $request->user_name;
+            $user->email = $request->email;
+            $user->save();
+        }
+        return redirect()->route('admin.mitra')->with('success', 'Mitra berhasil diperbarui.');
+    }
+
+    public function banksDestroy(Bank $bank)
+    {
+        if ($bank->deposits()->count() > 0) {
+            return back()->with('error', 'Bank memiliki setoran, tidak bisa dihapus.');
+        }
+        $bank->delete();
+        return back()->with('success', 'Bank dihapus.');
+    }
+
+    public function banksLocation(Bank $bank)
+    {
+        return view('admin.mitra.location', compact('bank'));
+    }
+
+    public function banksUpdateLocation(Request $request, Bank $bank)
+    {
+        $request->validate([
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+        ]);
+
+        $bank->update([
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+        ]);
+
+        return redirect()->route('admin.mitra')->with('success', 'Lokasi bank diperbarui.');
+    }
+    
     public function approve($id)
     {
         $user = User::findOrFail($id);

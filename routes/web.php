@@ -66,6 +66,12 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::post('/admin/mitra/{id}/approve', [AdminController::class, 'approve'])->name('admin.mitra.approve');
     Route::get('/admin/setoran', [AdminController::class, 'setoran'])->name('admin.setoran');
 
+    Route::get('/banks/{bank}/edit', [AdminController::class, 'banksEdit'])->name('admin.banks.edit');
+    Route::put('/banks/{bank}', [AdminController::class, 'banksUpdate'])->name('admin.banks.update');
+    Route::get('/banks/{bank}/location', [AdminController::class, 'banksLocation'])->name('admin.banks.location');
+    Route::put('/banks/{bank}/location', [AdminController::class, 'banksUpdateLocation'])->name('admin.banks.location.update');
+    Route::delete('/banks/{bank}', [AdminController::class, 'banksDestroy'])->name('admin.banks.destroy');
+    
     Route::get('/reports', [ReportController::class, 'index'])->name('admin.reports.index');
     Route::get('/reports/pdf', [ReportController::class, 'pdf'])->name('admin.reports.pdf');
 });
