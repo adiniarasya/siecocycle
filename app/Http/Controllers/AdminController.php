@@ -18,7 +18,7 @@ class AdminController extends Controller
         $totalwarga = User::where('role', 'warga')->count();
         $totaladmin = User::where('role', 'admin')->count();
         $totalpengguna = $totalmitra + $totalwarga + $totaladmin;
-        $users = User::whereIn('role', ['mitra', 'warga'])->latest()->get();
+        $users = User::whereIn('role', ['mitra', 'warga','admin'])->latest()->get();
         return view('admin.dashboard', compact('totalmitra', 'deposits', 'totalVerified', 'totalpengguna', 'totalsampah', 'totalwarga', 'totalpengguna', 'totaladmin', 'users'));
 
     }
