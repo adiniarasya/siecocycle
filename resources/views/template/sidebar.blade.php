@@ -69,7 +69,7 @@
           <span>Users</span>
         </a>
         <ul class="dropdown-menu">
-          <li><a class="nav-link" href="#">Data User</a></li>
+          <li><a class="nav-link" href="/admin/datawarga">Data User</a></li>
           <li><a class="nav-link" href="#">Tambah User</a></li>
         </ul>
       </li>

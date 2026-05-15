@@ -30,6 +30,12 @@ class AdminController extends Controller
         return view('admin.mitra.setoran', compact('setoran'));
     }
 
+    public function datawarga()
+    {
+        $warga = User::where('role', 'warga')->get();
+        return view('admin.warga.data', compact('warga'));
+    }
+
     public function mitra()
     {
         $pending = User::where('role', 'mitra')

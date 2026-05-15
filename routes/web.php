@@ -76,6 +76,9 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::put('/banks/{bank}/location', [AdminController::class, 'banksUpdateLocation'])->name('admin.banks.location.update');
     Route::delete('/banks/{bank}', [AdminController::class, 'banksDestroy'])->name('admin.banks.destroy');
     
+    Route::get('/admin/datawarga', [AdminController::class, 'datawarga'])->name('admin.datawarga');
+
+
     Route::get('/reports', [ReportController::class, 'index'])->name('admin.reports.index');
     Route::get('/reports/pdf', [ReportController::class, 'pdf'])->name('admin.reports.pdf');
 });
