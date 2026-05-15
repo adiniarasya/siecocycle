@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 <div class="row mb-5">
     
-    <div class="col-lg-4 col-md-6 col-12 mb-4">
+    <div class="col-lg-3 col-md-6 col-12 mb-4">
         <div class="card text-white bg-primary h-100">
             <div class="card-body d-flex align-items-center">
                 <div class="mr-3">
@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <div class="col-lg-4 col-md-6 col-12 mb-4">
+    <div class="col-lg-3 col-md-6 col-12 mb-4">
         <div class="card text-white bg-success h-100">
             <div class="card-body d-flex align-items-center">
                 <div class="mr-3">
@@ -31,11 +31,11 @@
         </div>
     </div>
 
-    <div class="col-lg-4 col-md-6 col-12 mb-4">
+    <div class="col-lg-3 col-md-6 col-12 mb-4">
         <div class="card text-white bg-primary h-100">
             <div class="card-body d-flex align-items-center">
                 <div class="mr-3">
-                    <i class="fas fa-trash"></i>
+                    <i class="fas fa-users"></i>
                 </div>
                 <div>
                     <div>Pengguna Aktif</div>
@@ -45,11 +45,11 @@
         </div>
     </div>
 
-    <div class="col-lg-4 col-md-6 col-12 mb-4">
+    <div class="col-lg-3 col-md-6 col-12 mb-4">
         <div class="card text-white bg-warning h-100">
             <div class="card-body d-flex align-items-center">
                 <div class="mr-3">
-                    <i class="fas fa-trash"></i>
+                    <i class="fas fa-university"></i>
                 </div>
                 <div>
                     <div>Bank Sampah</div>
