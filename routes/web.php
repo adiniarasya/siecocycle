@@ -88,4 +88,15 @@ Route::middleware('auth')->group(function () {
 });
 require __DIR__.'/auth.php';
 
-Route::post('/deposit/{id}/decision', [MitraController::class, 'decision']);
+
+
+// mitra
+Route::middleware(['auth', 'role:mitra'])->group(function () {
+    Route::get('/dashboard/mitra', [MitraController::class, 'index'])->name('mitra.index');
+    Route::get('/mitra/approved', [MitraController::class, 'approved'])->name('mitra.approved');
+    Route::get('/mitra/rejected', [MitraController::class, 'rejected'])->name('mitra.rejected');
+    Route::get('/mitra/report', [MitraController::class, 'report'])->name('mitra.report');
+    Route::get('/mitra/report/pdf', [MitraController::class, 'reportPdf'])->name('mitra.report.pdf');
+});
+
+Route::post('/deposit/{id}/decision', [MitraController::class, 'decision'])->middleware(['auth']);
