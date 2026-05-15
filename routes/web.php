@@ -77,6 +77,7 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::put('/banks/{bank}/location', [AdminController::class, 'banksUpdateLocation'])->name('admin.banks.location.update');
     Route::delete('/banks/{bank}', [AdminController::class, 'banksDestroy'])->name('admin.banks.destroy');
     
+<<<<<<< HEAD
     Route::get('admin/waste-types', [WasteTypesController::class, 'index'])->name('admin.waste-types.index');
     Route::get('waste-types/create', [WasteTypesController::class, 'create'])->name('admin.waste-types.create');
     Route::post('waste-types', [WasteTypesController::class, 'store'])->name('admin.waste-types.store');
@@ -84,6 +85,10 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::put('waste-types/{wasteType}', [WasteTypesController::class, 'update'])->name('admin.waste-types.update');
     Route::delete('waste-types/{wasteType}', [WasteTypesController::class, 'destroy'])->name('admin.waste-types.destroy');
     Route::post('waste-types/{wasteType}/toggle-status', [WasteTypesController::class, 'toggleStatus'])->name('admin.waste-types.toggle-status');
+=======
+    Route::get('/admin/datawarga', [AdminController::class, 'datawarga'])->name('admin.datawarga');
+
+>>>>>>> 8f4adcc24527ecd93b0543e2dcb85c1452b77b3f
 
     Route::get('/reports', [ReportController::class, 'index'])->name('admin.reports.index');
     Route::get('/reports/pdf', [ReportController::class, 'pdf'])->name('admin.reports.pdf');
@@ -97,4 +102,15 @@ Route::middleware('auth')->group(function () {
 });
 require __DIR__.'/auth.php';
 
-Route::post('/deposit/{id}/decision', [MitraController::class, 'decision']);
+
+
+// mitra
+Route::middleware(['auth', 'role:mitra'])->group(function () {
+    Route::get('/dashboard/mitra', [MitraController::class, 'index'])->name('mitra.index');
+    Route::get('/mitra/approved', [MitraController::class, 'approved'])->name('mitra.approved');
+    Route::get('/mitra/rejected', [MitraController::class, 'rejected'])->name('mitra.rejected');
+    Route::get('/mitra/report', [MitraController::class, 'report'])->name('mitra.report');
+    Route::get('/mitra/report/pdf', [MitraController::class, 'reportPdf'])->name('mitra.report.pdf');
+});
+
+Route::post('/deposit/{id}/decision', [MitraController::class, 'decision'])->middleware(['auth']);

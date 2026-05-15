@@ -50,13 +50,13 @@
         <div class="card-body">
             <form method="GET" action="{{ route('warga.dashboard') }}" id="filterForm">
                 <div class="row g-3 align-items-end">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label for="start_date" class="form-label">Dari Tanggal</label>
                         <input type="date" name="start_date" id="start_date" class="form-control"
                             value="{{ request('start_date') }}">
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <label for="end_date" class="form-label">Sampai Tanggal</label>
                         <input type="date" name="end_date" id="end_date" class="form-control"
                             value="{{ request('end_date') }}">
@@ -64,7 +64,7 @@
 
                     <div class="col-md-3">
                         <label for="waste_type" class="form-label">Jenis Sampah</label>
-                        <select name="waste_type" id="waste_type" class="form-select">
+                        <select name="waste_type" id="waste_type" class="form-control">
                             <option value="">Semua Jenis</option>
                             @foreach($wasteTypes as $type)
                                 <option value="{{ $type->id }}" {{ request('waste_type') == $type->id ? 'selected' : '' }}>
@@ -74,9 +74,9 @@
                         </select>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <label for="status" class="form-label">Status</label>
-                        <select name="status" id="status" class="form-select">
+                        <select name="status" id="status" class="form-control">
                             <option value="">Semua Status</option>
                             <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
                             <option value="verified" {{ request('status') == 'verified' ? 'selected' : '' }}>Verified</option>
@@ -84,13 +84,10 @@
                         </select>
                     </div>
 
-                    <div class="col-md-1">
+                    <div class="d-flex col-md-2 gap-3">
                         <button type="submit" class="btn btn-primary w-100">
                             <i class="fas fa-search"></i>
                         </button>
-                    </div>
-
-                    <div class="col-md-1">
                         <a href="{{ route('warga.dashboard') }}" class="btn btn-secondary w-100">
                             <i class="fas fa-undo"></i>
                         </a>

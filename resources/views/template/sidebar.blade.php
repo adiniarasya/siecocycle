@@ -33,10 +33,25 @@
           <i class="fas fa-clipboard"></i>
           <span>Riwayat Setoran</span>
         </a>
+
         <ul class="dropdown-menu">
-          <li><a class="nav-link" href="#">Disetujui</a></li>
-          <li><a class="nav-link" href="#">Ditolak</a></li>
+          <li><a class="nav-link" href="/mitra/approved">
+                <i class="fas fa-check-circle text-secondary me-2"></i> 
+                Disetujui
+            </a></li>
+          <li><a class="nav-link" href="/mitra/rejected">
+                <i class="fas fa-times-circle text-secondary me-2"></i> 
+                Ditolak
+            </a></li>
         </ul>
+
+      </li>
+      <li class="menu-header">Reports</li>
+      <li>
+        <a class="nav-link" href="/mitra/report">
+          <i class="fas fa-file"></i>
+          <span>Laporan</span>
+        </a>
       </li>
       @else
       <li>
@@ -69,7 +84,7 @@
           <span>Users</span>
         </a>
         <ul class="dropdown-menu">
-          <li><a class="nav-link" href="#">Data User</a></li>
+          <li><a class="nav-link" href="/admin/datawarga">Data User</a></li>
           <li><a class="nav-link" href="#">Tambah User</a></li>
         </ul>
       </li>
