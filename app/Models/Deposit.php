@@ -17,6 +17,7 @@ class Deposit extends Model
         'bank_id',
         'co2_saved',  
         'points',
+        'ai_scanned'
     ];
 
     protected $casts = [

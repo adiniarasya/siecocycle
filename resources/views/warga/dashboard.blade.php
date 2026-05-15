@@ -55,7 +55,7 @@
 
         <div class="d-flex gap-2">
 
-            <a href="{{ route('warga.scan') }}" class="btn btn-info btn-sm">
+            <a href="/ai-scan" class="btn btn-info btn-sm">
                 <i class="fas fa-camera"></i> AI Scan
             </a>
 

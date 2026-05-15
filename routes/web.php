@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AIScanController;
 use App\Http\Controllers\DepositController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\MitraController;
@@ -33,8 +34,8 @@ Route::get('/dashboard/mitra', [ MitraController::class, 'index'])->name('mitra.
 Route::middleware(['auth', 'role:warga'])->group(function () {
     Route::get('/warga/dashboard', [WargaController::class, 'index'])
         ->name('warga.dashboard');
-     Route::get('/warga/deposits/scan', [DepositController::class, 'scanAI'])
-        ->name('warga.scan');
+    //  Route::get('/warga/deposits/scan', [DepositController::class, 'scanAI'])
+    //     ->name('warga.scan');
 
     // Route::get('/warga/pilih-bank', [MapController::class, 'index'])
     //     ->name('warga.map');
@@ -58,6 +59,9 @@ Route::middleware(['auth', 'role:warga'])->group(function () {
 
     Route::get('/pilih-bank', [MapController::class, 'index'])->name('warga.pilih-bank');
     Route::post('/pilih-bank', [MapController::class, 'selectBank'])->name('warga.map.select');
+
+    Route::get('/ai-scan', [AIScanController::class, 'index'])->name('warga.ai-scan');
+    Route::post('/ai-scan/map', [AIScanController::class, 'mapClass'])->name('warga.ai.map');
 
 });
 Route::middleware(['auth', 'role:admin'])->group(function(){

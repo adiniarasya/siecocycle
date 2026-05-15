@@ -82,12 +82,9 @@
                             <input type="url" name="photo_url" value="{{ old('photo_url') }}" class="form-control">
                         </div>
 
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-success px-4">
-                                Simpan
-                            </button>
-                        </div>
-
+                        
+                        <button type="submit" class="btn btn-success px-4">Simpan</button>
+                        <a href="{{ route('warga.dashboard') }}" class="btn btn-secondary">Batal</a>
                     </form>
 
                 </div>

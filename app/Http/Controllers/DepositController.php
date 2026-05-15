@@ -22,19 +22,7 @@ class DepositController extends Controller
 
     public function create(Request $request)
     {
-        // $wasteTypes = WasteType::where('is_active', 1)->get();
-        // $selectedBankId = $request->query('bank_id');
-
-        // $banks = Bank::whereHas('user', function ($q) {
-        //     $q->where('is_approved', true);
-        // })->get(); // bank yang sudah disetujui
-
-
-        // $selectedBank = null;
-        // if ($selectedBankId) {
-        //     $selectedBank = Bank::find($selectedBankId);
-        // }
-
+    
         $wasteTypes = WasteType::where('is_active', true)->get();
         $selectedBankId = $request->query('bank_id'); // ambil dari URL
 
