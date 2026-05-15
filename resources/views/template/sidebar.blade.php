@@ -74,6 +74,13 @@
         </ul>
       </li>
 
+      <li>
+        <a class="nav-link" href="{{ route('admin.waste-types.index') }}">
+          <i class="fas fa-trash-alt"></i>
+          <span>Waste Type</span>
+        </a>
+      </li>
+
       <!-- Dropdown 2 -->
       <li class="dropdown">
         <a href="#" class="nav-link has-dropdown">
