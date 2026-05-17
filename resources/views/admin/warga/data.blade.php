@@ -8,11 +8,11 @@
 @endif
 
 <div class="card">
-    <div class="card-body table-responsive">
+    <div class="table-responsive">
         <table class="table table-striped table-hover">
     <thead>
         <tr>
-            <th>Id</th>
+            <th>No</th>
             <th>Nama Warga</th>
             <th>RW</th>
             <th>Email</th>
@@ -22,11 +22,12 @@
     <tbody>
         @foreach ($warga as $key => $w )
         <tr>
-            <th>{{ $key + 1 }}</th>
-            <th>{{ $w->name }}</th>
-            <th>{{ $w->rw_name }}</th>
-            <th>{{ $w->email }}</th>
-            <th>{{ $w->phone }}</th>
+            <td>{{ $key + 1 }}</td>
+            <td>{{ $w->name }}</td>
+            <td>{{ $w->rw_name }}</td>
+            <td>{{ $w->email }}</td>
+            <td>{{ $w->phone }}</td>
+            </td>
         </tr>
         @endforeach
        

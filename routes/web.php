@@ -84,6 +84,9 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::put('waste-types/{wasteType}', [WasteTypesController::class, 'update'])->name('admin.waste-types.update');
     Route::delete('waste-types/{wasteType}', [WasteTypesController::class, 'destroy'])->name('admin.waste-types.destroy');
     Route::post('waste-types/{wasteType}/toggle-status', [WasteTypesController::class, 'toggleStatus'])->name('admin.waste-types.toggle-status');
+   
+    Route::get('/admin/datawarga', [AdminController::class, 'datawarga'])->name('admin.datawarga');
+
 
     Route::get('/reports', [ReportController::class, 'index'])->name('admin.reports.index');
     Route::get('/reports/pdf', [ReportController::class, 'pdf'])->name('admin.reports.pdf');
