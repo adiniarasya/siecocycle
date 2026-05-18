@@ -85,7 +85,7 @@
         </a>
         <ul class="dropdown-menu">
           <li><a class="nav-link" href="/admin/datawarga">Data User</a></li>
-          <li><a class="nav-link" href="#">Tambah User</a></li>
+          <li><a class="nav-link" href="/admin/create_user">Tambah User</a></li>
         </ul>
       </li>
 

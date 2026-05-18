@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\WasteTypesController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -70,6 +71,15 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::get('/admin/mitra', [AdminController::class, 'mitra'])->name('admin.mitra');
     Route::post('/admin/mitra/{id}/approve', [AdminController::class, 'approve'])->name('admin.mitra.approve');
     Route::get('/admin/setoran', [AdminController::class, 'setoran'])->name('admin.setoran');
+    Route::get('/admin/datawarga', [AdminController::class, 'datawarga'])->name('admin.datawarga');
+
+    Route::get('admin/user', [UserController::class, 'index'])->name('admin.user.index');
+    Route::get('admin/create_user', [UserController::class, 'create'])->name('admin.user.create');
+    Route::post('admin/user', [UserController::class, 'store'])->name('admin.user.store');
+    Route::get('user/{id}/edit', [UserController::class, 'edit'])->name('admin.user.edit');
+    Route::put('user/{id}', [UserController::class, 'update'])->name('admin.user.update');
+    Route::delete('user/{id}', [UserController::class, 'destroy'])->name('admin.user.destroy');
+
 
     Route::get('/banks/{bank}/edit', [AdminController::class, 'banksEdit'])->name('admin.banks.edit');
     Route::put('/banks/{bank}', [AdminController::class, 'banksUpdate'])->name('admin.banks.update');
@@ -77,7 +87,6 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::put('/banks/{bank}/location', [AdminController::class, 'banksUpdateLocation'])->name('admin.banks.location.update');
     Route::delete('/banks/{bank}', [AdminController::class, 'banksDestroy'])->name('admin.banks.destroy');
     
-<<<<<<< HEAD
     Route::get('admin/waste-types', [WasteTypesController::class, 'index'])->name('admin.waste-types.index');
     Route::get('waste-types/create', [WasteTypesController::class, 'create'])->name('admin.waste-types.create');
     Route::post('waste-types', [WasteTypesController::class, 'store'])->name('admin.waste-types.store');
@@ -85,10 +94,6 @@ Route::middleware(['auth', 'role:admin'])->group(function(){
     Route::put('waste-types/{wasteType}', [WasteTypesController::class, 'update'])->name('admin.waste-types.update');
     Route::delete('waste-types/{wasteType}', [WasteTypesController::class, 'destroy'])->name('admin.waste-types.destroy');
     Route::post('waste-types/{wasteType}/toggle-status', [WasteTypesController::class, 'toggleStatus'])->name('admin.waste-types.toggle-status');
-=======
-    Route::get('/admin/datawarga', [AdminController::class, 'datawarga'])->name('admin.datawarga');
-
->>>>>>> 8f4adcc24527ecd93b0543e2dcb85c1452b77b3f
 
     Route::get('/reports', [ReportController::class, 'index'])->name('admin.reports.index');
     Route::get('/reports/pdf', [ReportController::class, 'pdf'])->name('admin.reports.pdf');

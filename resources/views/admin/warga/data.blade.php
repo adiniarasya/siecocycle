@@ -17,16 +17,26 @@
             <th>RW</th>
             <th>Email</th>
             <th>Phone</th>
+            <th>Aksi</th>
+
         </tr>
     </thead>
     <tbody>
         @foreach ($warga as $key => $w )
         <tr>
-            <th>{{ $key + 1 }}</th>
-            <th>{{ $w->name }}</th>
-            <th>{{ $w->rw_name }}</th>
-            <th>{{ $w->email }}</th>
-            <th>{{ $w->phone }}</th>
+            <td>{{ $key + 1 }}</td>
+            <td>{{ $w->name }}</td>
+            <td>{{ $w->rw_name }}</td>
+            <td>{{ $w->email }}</td>
+            <td>{{ $w->phone }}</td>
+            <td>
+                <form action ="{{ route('admin.user.destroy', $w->id) }}" method="POST" style="display:inline">
+                    {{ csrf_field() }}
+                    @method('DELETE')
+                    <a href="{{ route('admin.user.edit', $w->id) }}" class="btn btn-success btn-sm"><i class="far fa-edit"></i></a>
+                    <button type="submit" onclick="return confirm('Are you sure want to delete this user?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                </form>
+            </td>
         </tr>
         @endforeach
        

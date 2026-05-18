@@ -63,11 +63,7 @@ class DatabaseSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
                 'user_id' => 3
-<<<<<<< HEAD
             ]
-=======
-            ],
->>>>>>> bfb4338a34825e656676149313a07a77bbfd684c
         ]);
     }
 }
