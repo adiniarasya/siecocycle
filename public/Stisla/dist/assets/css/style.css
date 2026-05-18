@@ -1075,7 +1075,9 @@ table tr:hover .table-links {
   font-weight: 600;
   letter-spacing: .3px;
   border-radius: 30px;
-  font-size: 12px; }
+  font-size: 12px; 
+  color: #fff;
+}
   .badge.badge-warning {
     color: #fff; }
   .badge.badge-primary {
@@ -1083,11 +1085,13 @@ table tr:hover .table-links {
   .badge.badge-secondary {
     background-color: #34395e; }
   .badge.badge-success {
-    background-color: #63ed7a; }
+    background-color: #63ed7a; 
+  color: #fff;}
   .badge.badge-info {
     background-color: #3abaf4; }
   .badge.badge-danger {
-    background-color: #fc544b; }
+    background-color: #fc544b; 
+  color:#fff !important;}
   .badge.badge-light {
     background-color: #e3eaef;
     color: #191d21; }
